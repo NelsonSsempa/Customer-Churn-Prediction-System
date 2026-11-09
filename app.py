@@ -244,8 +244,8 @@ if st.button("Predict Churn"):
     scaled_data = scaler.transform(input_data)
 
     prediction = model.predict(scaled_data)[0]
-
     probability = model.predict_proba(scaled_data)[0][1]
+
     # Prediction Results
     st.subheader("📊 Prediction Results")
 
@@ -253,49 +253,33 @@ if st.button("Predict Churn"):
     retention_probability = (1 - probability) * 100
 
     col1, col2 = st.columns(2)
-
     with col1:
         st.metric("Churn Probability", f"{churn_probability:.2f}%")
-
     with col2:
         st.metric("Retention Probability", f"{retention_probability:.2f}%")
 
-
-st.write("### Customer Churn Risk")
-st.progress(float(probability))
-
-if prediction == 1:
-
-    st.error("⚠️ This customer is predicted to churn.")
-
-    st.write("### 💡 Recommended Business Actions")
-
-    st.write("""
-    - Contact the customer to understand their concerns.
-    - Consider offering a customer retention incentive.
-    - Review the customer's contract and payment experience.
-    - Provide personalised support.
-    """)
-
-else:
-
-    st.success("✅ This customer is predicted to stay.")
-
-    st.write("### 💡 Recommended Business Actions")
-
-    st.write("""
-    - Maintain good customer service.
-    - Continue monitoring customer satisfaction.
-    - Offer loyalty rewards where appropriate.
-    - Encourage long-term contract engagement.
-    """)
+    st.write("### Customer Churn Risk")
+    st.progress(float(probability))
 
     if prediction == 1:
-        st.error("⚠️ This customer is likely to churn.")
-    else:
-        st.success("✅ This customer is likely to stay.")
+        st.error("⚠️ This customer is predicted to churn.")
 
-    st.metric(
-        label="Churn Probability",
+        st.write("### 💡 Recommended Business Actions")
+        st.write("""
+        - Contact the customer to understand their concerns.
+        - Consider offering a customer retention incentive.
+        - Review the customer's contract and payment experience.
+        - Provide personalised support.
+        """)
+    else:
+        st.success("✅ This customer is predicted to stay.")
+
+        st.write("### 💡 Recommended Business Actions")
+        st.write("""
+        - Maintain good customer service.
+        - Continue monitoring customer satisfaction.
+        - Offer loyalty rewards where appropriate.
+        - Encourage long-term contract engagement.
+        """)
         value=f"{probability * 100:.2f}%"
     )
