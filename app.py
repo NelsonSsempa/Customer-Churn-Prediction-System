@@ -247,7 +247,7 @@ if st.button("🔮 Predict Customer Churn", use_container_width=True):
 
     probability = model.predict_proba(scaled_data)[0][1]
 
-   st.subheader("📊 Prediction Results")
+st.subheader("📊 Prediction Results")
 
 churn_probability = probability * 100
 retention_probability = (1 - probability) * 100
