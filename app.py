@@ -239,32 +239,27 @@ st.write(input_data)
 st.success(f"Successfully prepared {input_data.shape[1]} features!")
 
 # Prediction button
-if st.button("🔮 Predict Customer Churn", use_container_width=True):
+if st.button("Predict Churn"):
 
     scaled_data = scaler.transform(input_data)
 
     prediction = model.predict(scaled_data)[0]
 
     probability = model.predict_proba(scaled_data)[0][1]
+    # Prediction Results
+    st.subheader("📊 Prediction Results")
 
-st.subheader("📊 Prediction Results")
+    churn_probability = probability * 100
+    retention_probability = (1 - probability) * 100
 
-churn_probability = probability * 100
-retention_probability = (1 - probability) * 100
+    col1, col2 = st.columns(2)
 
-col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Churn Probability", f"{churn_probability:.2f}%")
 
-with col1:
-    st.metric(
-        "Churn Probability",
-        f"{churn_probability:.2f}%"
-    )
+    with col2:
+        st.metric("Retention Probability", f"{retention_probability:.2f}%")
 
-with col2:
-    st.metric(
-        "Retention Probability",
-        f"{retention_probability:.2f}%"
-    )
 
 st.write("### Customer Churn Risk")
 st.progress(float(probability))
