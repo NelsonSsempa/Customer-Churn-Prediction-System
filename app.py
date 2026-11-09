@@ -281,5 +281,3 @@ if st.button("Predict Churn"):
         - Offer loyalty rewards where appropriate.
         - Encourage long-term contract engagement.
         """)
-        value=f"{probability * 100:.2f}%"
-    )
